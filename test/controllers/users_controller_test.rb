@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   test "should get index" do
+    login_as(:one)
   	get :index
   	assert_response :success
   end
@@ -20,11 +21,13 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    login_as(:one)
   	get :edit, id: users(:one).id
   	assert_response :success
   end
 
   test "should update user" do
+    login_as(:two)
   	user = users(:two)
   	attributes = valid_user_attributes
   	patch :update, id: user.id, user: attributes
@@ -32,11 +35,13 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get show" do
+    login_as(:one)
   	get :show, id: users(:one)
   	assert_response :success
   end
 
   test "should delete user" do
+    login_as(:one)
   	assert_difference('User.count', -1) do
   		delete :destroy, id: users(:one)
   	end
